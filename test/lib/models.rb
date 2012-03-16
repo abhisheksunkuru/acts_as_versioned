@@ -1,3 +1,8 @@
+
+class Author < ActiveRecord::Base
+  has_many :pages
+end
+
 class Page < ActiveRecord::Base
   belongs_to :author
   has_many   :authors,  :through => :versions, :order => 'name'
@@ -10,8 +15,9 @@ class Page < ActiveRecord::Base
       base.belongs_to :author
       base.belongs_to :revisor, :class_name => 'Author'
     end
+
     def feeling_good?
-      @@feeling_good == true
+      self.class.feeling_good == true
     end
   end
 end
@@ -36,3 +42,16 @@ end
 
 class SpecialLockedPage < LockedPage
 end
+
+class Landmark < ActiveRecord::Base
+  acts_as_versioned :if_changed => [ :name, :longitude, :latitude ]
+end
+
+class Widget < ActiveRecord::Base
+  acts_as_versioned :sequence_name => 'widgets_seq', :association_options => {
+    :dependent => :nullify, :order => 'version desc'
+  }
+  non_versioned_columns << 'foo'
+end
+
+

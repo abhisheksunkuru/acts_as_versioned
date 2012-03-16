@@ -1,42 +1,25 @@
-Gem::Specification.new do |s|
-  s.name     = "acts_as_versioned"
-  s.version  = "0.6.3.1"
-  s.date     = "2009-04-04"
-  s.summary  = "ActiveRecord plugin for versioning your models."
-  s.email    = "ken@metaskills.net"
-  s.homepage = "http://github.com/metaskills/acts_as_versioned/"
-  s.description = "ActiveRecord plugin for versioning your models."
-  s.has_rdoc = true
-  s.authors  = ["Rick Olson"]
-  s.files    = [
-    "CHANGELOG", 
-    "MIT-LICENSE", 
-    "Rakefile", 
-    "README.rdoc", 
-    "RUNNING_UNIT_TESTS", 
-    "lib/acts_as_versioned.rb" ]
-  s.test_files = [
-    "test/fixtures/authors.yml",
-    "test/fixtures/landmark_versions.yml",
-    "test/fixtures/landmarks.yml",
-    "test/fixtures/locked_pages_revisions.yml",
-    "test/fixtures/locked_pages.yml",
-    "test/fixtures/page_versions.yml",
-    "test/fixtures/pages.yml",
-    "test/fixtures/widgets.yml",
-    "test/helper.rb",
-    "test/lib/boot.rb",
-    "test/lib/database.yml",
-    "test/lib/schema.rb",
-    "test/migration_test.rb",
-    "test/migrations/1_add_versioned_tables.rb",
-    "test/models/author.rb",
-    "test/models/landmark.rb",
-    "test/models/page.rb",
-    "test/models/thing.rb",
-    "test/models/widget.rb",
-    "test/versioned_test.rb" ]
-  s.rdoc_options = ["--main", "README.rdoc"]
-  s.extra_rdoc_files = ["README.rdoc","CHANGELOG","MIT-LICENSE"]
-end
+$:.push File.expand_path("../lib", __FILE__)
+require "acts_as_versioned/version"
 
+Gem::Specification.new do |s|
+  s.name          = 'acts_as_versioned-decisiv'
+  s.version       = ActiveRecord::Acts::Versioned::VERSION
+  s.platform      = Gem::Platform::RUBY
+  s.authors       = ['Rick Olson','Ken Collins']
+  s.email         = ['ken@metaskills.net']
+  s.homepage      = 'http://github.com/Decisiv/acts_as_versioned/'
+  s.summary       = 'ActiveRecord plugin for versioning your models.'
+  s.description   = 'ActiveRecord plugin for versioning your models. For Rails 3.'
+  s.files         = `git ls-files`.split("\n") - ["attr_stripper.gemspec"]
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ['lib']
+  s.rdoc_options  = ['--charset=UTF-8']
+  s.add_runtime_dependency     'activerecord', '~> 3.2.0'
+  s.add_development_dependency 'sqlite3',      '~> 1.3'
+  s.add_development_dependency 'rake',         '~> 0.9.2'
+  s.add_development_dependency 'minitest',     '~> 2.8.1'
+  s.add_development_dependency 'factory_girl', '~> 2.6.3'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'forgery'
+end

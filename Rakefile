@@ -1,24 +1,13 @@
-require 'rubygems'
+require 'bundler'
 require 'rake/testtask'
 
-desc 'Default: Test ActsAsVersioned with default ActiveRecord version.'
-task :default => :test
+Bundler::GemHelper.install_tasks
 
-desc 'Test ActsAsVersioned with default ActiveRecord version.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib' << 'test'
-  t.pattern = 'test/**/*_test.rb'
+desc 'Test the AttrStripper plugin.'
+Rake::TestTask.new do |t|
+  t.libs = ['lib','test']
+  t.test_files = Dir.glob("test/**/*_test.rb").sort
   t.verbose = true
 end
 
-desc 'Test ActsAsVersioned with all databases.'
-task :test_dbs do
-  test = Rake::Task['test']
-  dbs = ['sqlite3','postgresql','mysql','sqlserver']
-  dbs.each do |db|
-    ENV['DB'] = db
-    test.invoke
-    test.reenable
-  end
-end
-
+task :default => [:test]
