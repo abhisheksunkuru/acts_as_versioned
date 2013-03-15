@@ -247,7 +247,7 @@ module ActiveRecord #:nodoc:
 
           before_save :set_new_version
           after_save :save_version
-          after_destroy :save_version
+          before_destroy :save_version
           after_save :clear_old_versions
         end
 
