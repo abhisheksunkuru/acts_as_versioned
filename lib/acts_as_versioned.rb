@@ -3,8 +3,8 @@ require 'active_support/concern'
 
 module ActiveRecord #:nodoc:
   module Acts #:nodoc:
-    
-    # Specify this act if you want to save a copy of the row in a versioned table.  This assumes there is a 
+
+    # Specify this act if you want to save a copy of the row in a versioned table.  This assumes there is a
     # versioned table ready and that your model has a version field.  This works with optimistic locking if the lock_version
     # column is present as well.
     #
@@ -38,7 +38,7 @@ module ActiveRecord #:nodoc:
     #
     # Simple Queries to page between versions
     #
-    #   page.versions.before(version) 
+    #   page.versions.before(version)
     #   page.versions.after(version)
     #
     # Access the previous/next versions from the versioned model itself
@@ -49,7 +49,7 @@ module ActiveRecord #:nodoc:
     #
     # See ActiveRecord::Acts::Versioned::ClassMethods#acts_as_versioned for configuration options
     module Versioned
-      
+
       CALLBACKS = [:set_new_version, :save_version, :save_version?]
 
       # == Configuration options
@@ -247,6 +247,7 @@ module ActiveRecord #:nodoc:
 
           before_save :set_new_version
           after_save :save_version
+          after_destory :save_version
           after_save :clear_old_versions
         end
 
